@@ -1,0 +1,2 @@
+# Referral-Reward-Points
+The referral reward points extension will help you enable a reward program for your customers. Using the extension, you can set the reward points to calculate when a customer purchase from your store for limited amount, whenever a customer introduces your store to a new user, when subscribes for a newsletter during registration, when post reviews about your product, when they tag a product, when participates in poll etc. The extension allows the store owners to choose either or all options available for earning reward points.
