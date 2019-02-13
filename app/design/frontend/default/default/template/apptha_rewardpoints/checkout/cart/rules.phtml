@@ -1,0 +1,14 @@
+<?php $total = 0;?>
+<?php foreach($this->getRewardPointsRule() as $rule):?>
+	<div style="width:100%;padding-left:20px;">
+		<div style="float:left; width:400px"><?php echo $rule['message'];?></div>
+		<div style="float:left;"><b><?php echo $this->__('+ %s %s',($rule['qty']>1?$rule['qty']." x":""),Mage::helper('rewardpoints')->formatPoints($rule['amount']));?></b></div>
+	</div>
+	<?php $total += $rule['amount']*$rule['qty'];?>
+<?php endforeach;?>
+<?php if($total):?>
+	<div style="width:100%;padding:10px 20px;clear:left;">
+		<div style="float:left; width:400px;font-weight: bold;"><?php echo $this->__('Total');?></div>
+		<div style="float: left; border-top: 1px solid #333; width: 100px;"><b><?php echo $this->__('%s',Mage::helper('rewardpoints')->formatPoints($total));?></b></div>
+	</div>
+<?php endif;?>

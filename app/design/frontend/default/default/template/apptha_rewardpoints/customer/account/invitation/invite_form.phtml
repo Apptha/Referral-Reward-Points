@@ -1,0 +1,89 @@
+
+<form id="form-validate" method="post" action="<?php echo $this->getUrl('rewardpoints/invitation/invite')?>">
+<?php if(Mage::helper('rewardpoints')->isSocialNetworksEnabled()):?>
+<!--script for google+ sharing -->
+<script src="http://apis.google.com/js/plusone.js"></script>
+<!--script for google+ sharing end-->
+	<div class="fieldset group-select">
+        <h2 class="legend"><?php echo $this->__('Share With Social Networks');?></h2>
+        <span><?php echo $this->__('With friends on Facebook, Twitter,Linked in and Google+') ?></span>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="customer-name">
+                	<?php $addonClass="";?>
+                	<?php if(version_compare(Mage::getVersion(),"1.3.2.4","<=")) $addonClass = " input-box";?>
+				    <div class="<?php echo $addonClass;?> name-firstname">
+				        <?php $url = Mage::helper('rewardpoints')->getLink(Mage::getModel('customer/session')->getCustomer());?>
+						<div class="div_share">
+						<a target="_blank" href="https://www.facebook.com/sharer.php?u=<?php echo $url ?>" title="Share With Facebook"><img src="<?php echo $this->getSkinUrl('apptha_rewardpoints/images/invitation/facebook.png')?>" alt="share" /></a>
+						<a target="_blank" href="https://twitter.com/home/?status=<?php echo $url ?>" title="Share With Twitter"><img src="<?php echo $this->getSkinUrl('apptha_rewardpoints/images/invitation/twitter.png') ?>" alt="share" /></a>						
+						<a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo $url ?>&title=Invitation&summary=Please click following link to earn reward points&source=<?php echo $url ?>" title="Share With Linked in"><img src="<?php echo $this->getSkinUrl('apptha_rewardpoints/images/invitation/linkedin_share_button.png') ?>"/></a>
+						<g:plusone size="standard" href="<?php echo $url ?>" data-count="false"></g:plusone>						
+						</div>
+				    </div>
+				</div>
+            </li>
+        </ul>
+    </div>
+    <?php endif; ?>
+    <?php if(Mage::helper('rewardpoints')->isReferralLinkEnabled()):?>
+    <div class="fieldset group-select">
+        <h2 class="legend"><?php echo $this->__('Referral Link');?></h2>
+        <span><?php echo $this->__('Copy + paste your personal link into your blog, email or IM.') ?></span>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="customer-name">
+                	<?php $addonClass="";?>
+                	<?php if(version_compare(Mage::getVersion(),"1.3.2.4","<=")) $addonClass = " input-box";?>
+				    <div>
+				        <?php $url = Mage::helper('rewardpoints')->getLink(Mage::getModel('customer/session')->getCustomer());?>
+						<div class="div_share">
+							<input type="text" value="<?php echo $url ?>" style="width:100%" onclick="this.select()">
+							<div class="clear_both"><span> </span></div>						
+						</div>
+				    </div>
+				</div>
+            </li>
+        </ul>
+    </div>
+    <?php endif; ?>
+    <?php if(Mage::helper('rewardpoints')->isInvFrndViaEmailEnabled()):?>    
+    <div class="fieldset group-select">
+        <?php echo $this->getBlockHtml('formkey')?>
+        <h2 class="legend"><?php echo $this->__('Invite Friends Via Email');?></h2>
+        <span><?php echo $this->__('Send invitation emails to your friends and family');?></span>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="customer-name">
+                	<?php $addonClass="";?>
+                	<?php if(version_compare(Mage::getVersion(),"1.3.2.4","<=")) $addonClass = " input-box";?>
+				    <div class="field<?php echo $addonClass;?> name-firstname">
+				        <label class="required" style="color:#666666" for="email"><?php echo Mage::helper('rewardpoints')->__('Email of your friends');?><em style="color:#EB340A">*</em></label>
+				        <div class="input-box">
+				            <textarea class="input-text required-entry" title="Email" name="email" id="email" style="width:580px; height:70px"></textarea>				            
+				            <div><?php echo $this->__('Separate with commas (,)');?></div>
+				        </div>
+				        <label class="required" style="color:#666666" for="email"><?php echo Mage::helper('rewardpoints')->__('Message');?><em style="color:#EB340A">*</em></label>
+				        <div class="input-box">
+				            <textarea class="input-text required-entry" title="Message" name="message" id="message" style="width:580px; height:200px"></textarea>
+				        </div>
+				    </div>
+				</div>
+            </li>
+           
+            
+            <li>
+                <div>
+			        <button class="button form-button" title="<?php echo Mage::helper('rewardpoints')->__("Send");?>" type="submit"><span><span>  <?php echo Mage::helper('rewardpoints')->__("Send");?>  </span></span></button>
+			        <p class="required"><?php echo Mage::helper('rewardpoints')->__("* Required Fields");?></p>
+			    </div>
+            </li>
+        </ul>
+    </div>
+     <?php endif; ?>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    //]]>
+</script>

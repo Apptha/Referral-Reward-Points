@@ -1,0 +1,15 @@
+<table>
+	<tr><td>
+			<p class="amount"><?php echo $this->__('Your Referral Points: <strong> %s </strong>  =  <strong>%s</strong>',Mage::helper('rewardpoints')->formatPoints($this->getRewardPoints()),$this->getMoney()) ?></p>
+			    <?php $rate = $this->getPointPerMoney();?>
+			<p class="amount"><?php echo $this->__('Referral Point / Currency Rate: <strong> %s </strong>  =  <strong>%s</strong>',Mage::helper('rewardpoints')->formatPoints($rate[0]),$this->formatMoney($rate[1]) ) ?></p>
+	</td>	
+	
+	</tr>
+</table>
+
+<script type="text/javascript">
+//<![CDATA[
+    var exchangeForm = new VarienForm('frm_exchange_rewardpoints', true);
+    //]]>
+</script>

@@ -1,0 +1,34 @@
+<?php 
+$this->_totals['grand_total'] = new Varien_Object(array(
+            'code'  => 'grand_total',
+            'field'  => 'grand_total',
+            'strong'=> true,
+            'value' => $this->getOrder()->getGrandTotal(),
+            'label' => $this->__('Grand Total')
+        ));
+?>  
+    <?php /*********************************************************************/?>
+    <?php echo $this->getChildHtml('rewardpoints');?>   
+    <?php /*********************************************************************/?>
+<?php foreach ($this->getTotals() as $_code => $_total): ?>
+    <?php if ($_total->getBlockName()): ?>
+        <?php echo $this->getChildHtml($_total->getBlockName(), false); ?>
+    <?php else:?>
+    <tr class="<?php echo $_code?>">
+        <td <?php echo $this->getLabelProperties()?>>
+            <?php if ($_total->getStrong()):?>
+            <strong><?php echo $_total->getLabel()?></strong>
+            <?php else:?>
+            <?php echo $_total->getLabel()?>
+            <?php endif?>
+        </td>
+        <td <?php echo $this->getValueProperties()?>>
+            <?php if ($_total->getStrong()):?>
+            <strong><?php echo $this->formatValue($_total) ?></strong>
+            <?php else:?>
+            <?php echo $this->formatValue($_total) ?>
+            <?php endif?>
+        </td>
+    </tr>
+    <?php endif?>
+<?php endforeach?>

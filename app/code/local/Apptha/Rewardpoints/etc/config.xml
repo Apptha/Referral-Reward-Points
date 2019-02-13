@@ -1,0 +1,442 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category   Apptha
+ * @package    Apptha_Referral_Points
+ * @author     Apptha Team
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config>
+    <modules>
+        <Apptha_Rewardpoints>
+            <version>0.1.0</version>
+        </Apptha_Rewardpoints>
+    </modules>
+    <frontend>
+        <routers>
+            <rewardpoints>
+                <use>standard</use>
+                <args>
+                    <module>Apptha_Rewardpoints</module>
+                    <frontName>rewardpoints</frontName>
+                </args>
+            </rewardpoints>
+        </routers>
+        <layout>
+            <updates>
+                <rewardpoints>
+                    <file>apptha_rewardpoints.xml</file>
+                </rewardpoints>
+            </updates>
+        </layout>
+        <translate>
+			<modules>
+				<Apptha_Rewardpoints>
+					<files>
+						<default>Apptha_Referralpoints.csv</default>
+					</files>
+				</Apptha_Rewardpoints>
+			</modules>
+		</translate>
+		
+    </frontend>
+    <admin>
+        <routers>
+			<rewardpoints>
+				<use>admin</use>
+				<args>
+					<module>Apptha_Rewardpoints</module>
+					<frontName>rewardpoints</frontName>
+				</args>
+			</rewardpoints>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			<rewardpoints module="rewardpoints">
+				<title>Referral Points</title>
+				<sort_order>71</sort_order>               
+				<children>
+					<rewardpointsmanager module="rewardpoints">
+						<title>Manage Referral Points</title>
+						<sort_order>10</sort_order>
+						<action>rewardpoints/adminhtml_rewardpoints</action>
+					</rewardpointsmanager>
+					<rewardpointsconfig module="rewardpoints">
+						<title>Configuration</title>
+						<sort_order>20</sort_order>
+						<action>adminhtml/system_config/edit/section/rewardpoints</action>
+					</rewardpointsconfig>
+				</children>
+			</rewardpoints>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <rewardpoints translate="title" module="rewardpoints">
+                                            <title>Reward Points</title>
+                                        </rewardpoints>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<rewardpoints>
+					<file>apptha_rewardpoints.xml</file>
+				</rewardpoints>
+			</updates>
+		</layout>
+		<translate>
+			<modules>
+				<Apptha_Rewardpoints>
+					<files>
+						<default>apptha_rewardpoints.csv</default>
+					</files>
+				</Apptha_Rewardpoints>
+			</modules>
+		</translate>
+    </adminhtml>   
+    <global>
+    	<rewrite>
+    		<apptha_rewardpoints_checkout_cart>
+    			<from><![CDATA[#^/checkout/cart/couponPost#]]></from>
+    			<to>/rewardpoints/checkout/couponPost/</to>
+    		</apptha_rewardpoints_checkout_cart>
+    	</rewrite>
+    	
+        <events>
+        	 <sales_quote_collect_totals_before>
+                <observers>
+                    <rewardpoints>
+                        <type>singleton</type>
+                        <class>rewardpoints/quote</class>
+                        <method>collectTotalBefore</method>
+                    </rewardpoints>
+                </observers>
+            </sales_quote_collect_totals_before>
+            <!-- place order after -->
+            <sales_order_place_after>
+				 <observers>
+                    <rewardpoints>
+                        <type>singleton</type>
+                        <class>rewardpoints/checkout</class>
+                        <method>placeAfter</method>
+                    </rewardpoints>
+                </observers>
+			</sales_order_place_after>
+            <!-- place order after end -->
+            <sales_order_invoice_save_after>
+            	<observers>
+                    <rewardpoints>
+                        <type>singleton</type>
+                        <class>rewardpoints/checkout</class>
+                        <method>saveOrderInvoiceAfter</method>
+                    </rewardpoints>
+                </observers>
+            </sales_order_invoice_save_after>
+            
+            <checkout_onepage_controller_success_action>
+            	<observers>
+                    <rewardpoints>
+                        <type>singleton</type>
+                        <class>rewardpoints/checkout</class>
+                        <method>checkoutSuccess</method>
+                    </rewardpoints>
+                </observers>
+            </checkout_onepage_controller_success_action>
+            
+            <!-- when customer logged into my rewardpoints -->
+            <customer_customer_authenticated>
+                <observers>
+                    <rewardpoints>
+                        <type>singleton</type>
+                        <class>rewardpoints/transaction</class>
+                        <method>update</method>
+                    </rewardpoints>
+                </observers>
+            </customer_customer_authenticated>
+            
+            <rewardpoints_manager_index>
+            	<observers>
+                    <rewardpoints>
+                        <type>singleton</type>
+                        <class>rewardpoints/transaction</class>
+                        <method>update</method>
+                    </rewardpoints>
+                </observers>
+            </rewardpoints_manager_index>
+            <!-- when customer logged into my rewardpoints end-->
+            
+            <sales_order_payment_cancel>
+            	<observers>
+                    <rewardpoints>
+                        <type>singleton</type>
+                        <class>rewardpoints/checkout</class>
+                        <method>paymentCancel</method>
+                    </rewardpoints>
+                </observers>
+            </sales_order_payment_cancel>            
+            
+            <customer_save_after>
+            	<observers>
+                    <rewardpoints>
+                        <type>singleton</type>
+                        <class>rewardpoints/customer</class>
+                        <method>customerSaveAfter</method>
+                    </rewardpoints>
+                </observers>
+            </customer_save_after>
+            
+            <adminhtml_customer_prepare_save>
+            	<observers>
+                    <rewardpoints>
+                        <type>singleton</type>
+                        <class>rewardpoints/admin_customer</class>
+                        <method>saveRewardPoints</method>
+                    </rewardpoints>
+                </observers>
+            </adminhtml_customer_prepare_save>
+            
+            <review_save_after>
+            	<observers>
+                    <rewardpoints>
+                        <type>singleton</type>
+                        <class>rewardpoints/admin_review_product</class>
+                        <method>save</method>
+                    </rewardpoints>
+                </observers>
+            </review_save_after>           
+            
+            <poll_vote_save_after>
+            	<observers>
+                    <rewardpoints>
+                        <type>singleton</type>
+                        <class>rewardpoints/poll_vote</class>
+                        <method>voteAfterSave</method>
+                    </rewardpoints>
+                </observers>
+            </poll_vote_save_after>
+
+            <invitation_referral_link_click>
+            	<observers>
+                    <rewardpoints>
+                        <type>singleton</type>
+                        <class>rewardpoints/invitation</class>
+                        <method>referralLinkClick</method>
+                    </rewardpoints>
+                </observers>
+            </invitation_referral_link_click>
+            
+            <tag_save_after>
+                <observers>
+                    <rewardpoints>
+                        <type>singleton</type>
+                        <class>rewardpoints/admin_tag_product</class>
+                        <method>save</method>
+                    </rewardpoints>
+                </observers>
+            </tag_save_after>
+            
+            <sales_quote_item_save_after>
+                <observers>
+                    <rewardpoints>
+                        <type>singleton</type>
+                        <class>rewardpoints/checkout</class>
+                        <method>itemSaveAfter</method>
+                    </rewardpoints>
+                </observers>
+            </sales_quote_item_save_after>
+
+<!--             <sales_quote_item_delete_after> -->
+<!--                 <observers> -->
+<!--                     <rewardpoints> -->
+<!--                         <type>singleton</type> -->
+<!--                         <class>rewardpoints/checkout</class> -->
+<!--                         <method>itemSaveAfter</method> -->
+<!--                     </rewardpoints> -->
+<!--                 </observers> -->
+<!--             </sales_quote_item_delete_after> -->
+
+        </events>
+        <models>
+        	<rewardpoints>
+                <class>Apptha_Rewardpoints_Model</class>
+                <resourceModel>rewardpoints_mysql4</resourceModel>
+            </rewardpoints>
+            <rewardpoints_mysql4>
+                <class>Apptha_Rewardpoints_Model_Mysql4</class>
+                <entities>
+                    <rewardpointshistory>
+                        <table>apptha_reward_point_history</table>
+                    </rewardpointshistory>
+					<customer>
+						<table>apptha_reward_point_customer</table>
+					</customer>
+					<rewardpointsorder>
+						<table>apptha_reward_point_order</table>
+					</rewardpointsorder>
+					<invitations>
+						<table>apptha_reward_point_invitations</table>
+					</invitations>
+                </entities>
+            </rewardpoints_mysql4>
+            <poll>
+            	<rewrite>
+            		<poll_vote>Apptha_Rewardpoints_Model_Poll_Vote</poll_vote>
+            	</rewrite>
+            </poll>
+            
+            <tax>
+            	<rewrite>
+            		<sales_total_quote_tax>rewardpoints/tax_sales_total_quote_tax</sales_total_quote_tax>
+            	</rewrite>
+            </tax>
+        </models>
+        <resources>
+            <rewardpoints_setup>
+                <setup>
+                    <module>Apptha_Rewardpoints</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </rewardpoints_setup>
+            <rewardpoints_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </rewardpoints_write>
+            <rewardpoints_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </rewardpoints_read>
+        </resources>
+        <blocks>
+            <rewardpoints>
+                <class>Apptha_Rewardpoints_Block</class>
+            </rewardpoints>
+            
+            <adminhtml>
+            	<rewrite>
+            		<customer_edit_tabs>Apptha_Rewardpoints_Block_Adminhtml_Customer_Edit_Tabs</customer_edit_tabs>
+            		<sales_order_totals>Apptha_Rewardpoints_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>
+            		<sales_order_invoice_totals>Apptha_Rewardpoints_Block_Adminhtml_Sales_Order_Invoice_Totals</sales_order_invoice_totals>
+            		<sales_order_creditmemo_totals>Apptha_Rewardpoints_Block_Adminhtml_Sales_Order_Creditmemo_Totals</sales_order_creditmemo_totals>
+            	</rewrite>
+            </adminhtml>
+        </blocks>
+        
+        <helpers>
+            <rewardpoints>
+                <class>Apptha_Rewardpoints_Helper</class>
+            </rewardpoints>
+        </helpers>
+        
+        
+		<template>
+		  <email>
+		    <rewardpoints_share_points_sender_template translate="label" module="rewardpoints">
+			      <label>Customer's Email Template</label>
+			      <file>apptha_rewardpoints/apptha_rewardpoints_email_sender.html</file>
+			      <type>html</type>
+		    </rewardpoints_share_points_sender_template>
+		     
+		     <rewardpoints_share_points_recipient_template translate="label" module="rewardpoints">
+			      <label>Recipient's Email Template</label>
+			      <file>apptha_rewardpoints/apptha_rewardpoints_email_recipient.html</file>
+			      <type>html</type>
+		     </rewardpoints_share_points_recipient_template>
+		     
+		     <rewardpoints_invitations_recipient_template translate="label" module="rewardpoints">
+			      <label>Invitation Email To Friends</label>
+			      <file>apptha_rewardpoints/apptha_invitation_email_to_friend.html</file>
+			      <type>html</type>
+		    </rewardpoints_invitations_recipient_template>
+		  </email>
+		</template>
+		<sales>
+            <quote>
+                <totals>
+                    <reward_points>
+                        <class>rewardpoints/quote_address_total_rewardpoints</class>
+                        <renderer>rewardpoints/checkout_rewardpoints</renderer>
+                        <after>discount</after>
+                        <before>grand_total</before>
+                    </reward_points>
+                </totals>
+            </quote>
+            <order_invoice>
+            	<totals>
+                    <reward_points>
+                        <class>rewardpoints/order_invoice_total_rewardpoints</class>
+                    </reward_points>
+            	</totals>
+            </order_invoice>
+            <order_creditmemo>
+                <totals>
+                    <reward_points>
+                        <class>rewardpoints/order_creditmemo_total_rewardpoints</class>
+                    </reward_points>
+                </totals>
+            </order_creditmemo>
+    	</sales>
+    	
+    	<pdf>
+    		<totals>
+                <rewardpoints_discount translate="title">
+                    <title>Referral Points Discount</title>
+                    <source_field>rewardpoints_discount</source_field>
+                    <amount_prefix>-</amount_prefix>
+                    <font_size>7</font_size>
+                    <display_zero>0</display_zero>
+                    <sort_order>201</sort_order>
+                    <model>rewardpoints/order_pdf_total_rewardpoints</model>
+                </rewardpoints_discount>
+            </totals>
+    	</pdf>
+	</global>
+    <default>
+		<rewardpoints>
+			<general>
+				<enabled>1</enabled>				
+				<points_currency_rate>100/1</points_currency_rate>
+				<reward_points_expire_days>30</reward_points_expire_days>
+				<reward_points_minimums>100</reward_points_minimums>
+				<reward_points_maximums>10000</reward_points_maximums>
+			</general>
+			<earning_points>
+				<registration>10</registration>
+				<signup_newsletter>10</signup_newsletter>
+				<reviewing_product>5</reviewing_product>
+				<tagging_product>5</tagging_product>
+				<participating_in_poll>5</participating_in_poll>
+				<!--  <participating_in_poll_limit>1</participating_in_poll_limit>-->
+				<points_to_purchasing_order>100/10</points_to_purchasing_order>
+				<maximum_points_to_purchasing_order>100</maximum_points_to_purchasing_order>
+				<!--  <share_points_to_friends>5</share_points_to_friends>
+				<invite_friend>10</invite_friend>-->
+			</earning_points>
+			<invitations>
+				<enabled>1</enabled>
+				<using_customer_email>0</using_customer_email>
+				<email_sender>general</email_sender>
+				<recipient_template>invitation_config_email_template</recipient_template>
+			</invitations>
+		</rewardpoints>
+	</default>
+</config>

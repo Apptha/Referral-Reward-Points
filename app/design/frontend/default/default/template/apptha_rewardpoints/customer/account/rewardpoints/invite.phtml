@@ -1,0 +1,42 @@
+<form id="form-validate" method="post" action="<?php echo $this->getUrl('rewardpoints/rewardpoints/send')?>">
+    <div class="fieldset">
+        <?php echo $this->getBlockHtml('formkey')?>
+        <h2 class="legend">Invite Friend</h2>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="customer-name">
+				    <div class="field">
+				        <label class="required" for="email"><em>*</em><?php echo Mage::helper('rewardpoints')->__('Email of your friends');?></label>
+				        <div class="input-box">
+				            <input type="text" class="input-text required-entry validate-email" title="Email" name="email" id="email" gtbfieldid="135">
+				            <span style="font-size: 10px"><?php echo Mage::helper('rewardpoints')->__("Seperate by comma (,)")?></span>
+				        </div>
+				    </div>
+				    <div class="field">
+				        <label class="required" for="email"><em>*</em><?php echo Mage::helper('rewardpoints')->__('Friend name');?></label>
+				        <div class="input-box">
+				            <input type="text" class="input-text required-entry" title="Name" name="name" id="name" gtbfieldid="135">
+				        </div>
+				    </div>
+				    <div class="field" style="clear: both;">
+				        <label class="required" for="email"><em>*</em><?php echo Mage::helper('rewardpoints')->__('Message');?></label>
+				        <div class="input-box">
+				            <textarea rows="4" cols="40" style="width: 530px;"></textarea>
+				        </div>
+				    </div>
+				</div>
+            </li>
+            <li>
+                <div>
+			        <button class="button" title="<?php echo Mage::helper('rewardpoints')->__("Send");?>" type="submit"><span><span><?php echo Mage::helper('rewardpoints')->__("Send");?></span></span></button>
+			        <p class="required">* Required Fields</p>
+			    </div>
+            </li>
+        </ul>
+    </div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    //]]>
+</script>

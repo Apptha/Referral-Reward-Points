@@ -1,0 +1,40 @@
+<div id="transaction_history_box">
+<?php echo $this->getToolbarHtml()?>
+<?php $transactions = $this->getTransaction();?>
+<table id="my-transaction-table" class="data-table">
+    <col width="1">
+    <col width="1">
+    <!-- <col width="1"> -->
+    <col width="1">
+    <col width="1">
+    <col width="1">
+        <thead>
+            <tr>
+                <th><?php echo $this->__("Date")?></th>
+                <th style="text-align: center;"><?php echo $this->__("Points")?></th>
+                <th style="text-align: center;"><?php echo $this->__("Balance")?></th>
+                <th><?php echo $this->__("Transaction Details")?></th>
+                <th style="text-align: center;"><?php echo $this->__("Status")?></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach($transactions as $transaction):?>
+            <tr>
+                    <td style="width: 80px;"><?php echo $this->formatDate($transaction->getTransactionTime())." ".$this->formatTime($transaction->getTransactionTime())?></td>
+                    <?php $tmp = ($transaction->getData('status') == Apptha_RewardPoints_Model_Status::COMPLETE)?$transaction->getData('amount'):0;
+                    //$strExpDate = Mage::helper('rewardpoints')->getExpDate($transaction->getTransactionTime());?>
+                    <!--  <td style="text-align: right;"><span class="price"><?php echo $this->formatAmount($transaction->getAmount(), $transaction->getTypeOfTransaction())?></span><div class="clear:both"></div><span style="color: gray;"><?php echo $this->formatDate($transaction->getTransactionTime()).' '.$this->formatTime($transaction->getTransactionTime());?></span></td>-->
+                    <td style="text-align: right;"><span class="price"><?php echo $this->formatAmount($transaction->getAmount(), $transaction->getTypeOfTransaction())?></span></td>
+                    <td><?php echo $transaction->getData('balance') + $this->getPositiveAmount($tmp,$transaction->getTypeOfTransaction());?></td>
+                    <td style="width: 230px;"><?php echo $this->getTransactionDetail($transaction->getTypeOfTransaction(),$transaction->getTransactionDetail(), $transaction->getStatus())?></td>
+                    <td style="text-align: center; width: 70px"><?php echo $this->getStatusText($transaction->getStatus());?></td>
+           	</tr>
+        <?php endforeach;?>
+      	</tbody>
+</table>
+
+<div class="transaction_note" style="padding-top:20px;"><?php echo $this->getChildHtml('note');?></div>
+<?php echo $this->getToolbarHtml()?>
+
+</div>
+<script type="text/javascript">decorateTable('my-transaction-table')</script>

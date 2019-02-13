@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <customer_account translate="label">
+	    <reference name="customer_account_navigation">
+	    	<action method="addLink" translate="label" module="rewardpoints" ifconfig="rewardpoints/invitations/enabled"><name>invitation</name><path>rewardpoints/invitation/</path><label>My Invitations</label></action>
+	    	<action method="addLink" translate="label" module="rewardpoints" ifconfig="rewardpoints/general/enabled"><name>reward_points</name><path>rewardpoints/rewardpoints/</path><label>My Referral Points</label></action>
+	    </reference>
+    </customer_account>
+    
+    <rewardpoints_rewardpoints_index>
+    	<update handle="customer_account"/>
+    	<reference name="head">
+    		<action method="addJs"><script>apptha_rewardpoints/jquery.js</script></action>
+    		<action method="addJs"><script>apptha_rewardpoints/js.js</script></action>
+    	</reference>
+    	<reference name="content">
+	        <block type="rewardpoints/rewardpoints" name="customer_rewardpoints_dashboard" template="apptha_rewardpoints/customer/account/rewardpoints.phtml">
+	            <block type="rewardpoints/rewardpoints_info" name="customer_rewardpoints_info" as="info" template="apptha_rewardpoints/customer/account/rewardpoints/info.phtml"/>
+	            <block type="rewardpoints/rewardpoints_transaction" name="customer_rewardpoints_transaction" as="transaction" template="apptha_rewardpoints/customer/account/rewardpoints/transaction.phtml">
+	            	<action method="setPageSize"><page_size>15</page_size></action>
+	            	<block type="rewardpoints/rewardpoints_transaction_note" name="customer_rewardpoints_transaction_note" as="note" template="apptha_rewardpoints/customer/account/rewardpoints/transaction/note.phtml"/>
+	            </block>
+	            <block type="core/template" name="customer_rewardpoints_send" as="send" template="apptha_rewardpoints/customer/account/rewardpoints/send.phtml"/>	            
+	        </block>
+        </reference>
+    </rewardpoints_rewardpoints_index>
+    
+    <rewardpoints_invitation_index>
+   <update handle="customer_account"/>
+    	<reference name="content">
+	        <block type="rewardpoints/invitation" name="customer_invitation_dashboard" template="apptha_rewardpoints/customer/account/invitation.phtml">	        	
+	        <block type="rewardpoints/invitation_form" name="customer_invitation_form" as="invite_form" template="apptha_rewardpoints/customer/account/invitation/invite_form.phtml"/>
+	        </block>
+        </reference>
+    </rewardpoints_invitation_index>
+
+    <checkout_cart_index>
+    	<reference name="head">					
+			<action method="addJs"><script>apptha_rewardpoints/jquery.js</script></action>
+			<action method="addJs"><script>apptha_rewardpoints/noconflict.js</script></action>			
+        </reference>
+    	
+	    <reference name="checkout.cart">
+	    	<action method="setCartTemplate" ifconfig="rewardpoints/general/enabled"><value>apptha_rewardpoints/checkout/cart.phtml</value></action>
+            <action method="chooseTemplate" ifconfig="rewardpoints/general/enabled"/>
+	    	<block type="rewardpoints/checkout_cart_rewardpoints" name="rewardpoints.checkout.cart.rewardpoints" as="rewardpoints" template="apptha_rewardpoints/checkout/cart/rewardpoints.phtml"/>
+	    </reference>
+	    <reference name="checkout.cart.totals">
+	    	<action method="setTemplate" ifconfig="rewardpoints/general/enabled"><template>apptha_rewardpoints/checkout/cart/totals.phtml</template></action>
+	    	<block type="core/template" name="rewardpoints.checkout.cart.totals.rewardpoints" as="rewardpoints" template="apptha_rewardpoints/checkout/cart/totals/rewardpoints.phtml"/>
+	    </reference>
+    </checkout_cart_index>
+    
+    <rewardpoints_checkout_rewardpointscheckout>
+    	<reference name="root">
+    		<action method="setTemplate"><template>apptha_rewardpoints/page/empty.phtml</template></action>
+    	</reference>
+	    <reference name="content">
+		    <block type="checkout/cart_totals" name="checkout.cart.totals" as="totals" template="apptha_rewardpoints/checkout/cart/totals_ajax.phtml">
+		    	<block type="core/template" name="rewardpoints.checkout.cart.totals.rewardpoints" as="rewardpoints" template="apptha_rewardpoints/checkout/cart/totals/rewardpoints.phtml"/>
+		    </block>
+		</reference>
+    </rewardpoints_checkout_rewardpointscheckout>
+    
+    <!-- <rewardpoints_checkout_updaterules>
+	    <reference name="root">
+	    		<action method="setTemplate"><template>apptha_rewardpoints/page/empty.phtml</template></action>
+    	</reference>
+	    <reference name="content">
+		    <block type="rewardpoints/checkout_cart_rewardpoints" name="rewardpoints.checkout.cart.rules" as="rules" template="apptha_rewardpoints/checkout/cart/rules.phtml"></block>
+		</reference>
+    </rewardpoints_checkout_updaterules>
+    
+      <checkout_onepage_review>
+    	<reference name="checkout.onepage.review.info.totals">
+    		<action method="setTemplate" ifconfig="rewardpoints/general/enabled"><template>apptha_rewardpoints/checkout/onepage/review/totals.phtml</template></action>
+    		<block type="core/template" name="rewardpoints.checkout.onepage.review.info.totals.rewardpoints" as="rewardpoints" template="apptha_rewardpoints/checkout/onepage/review/totals/rewardpoints.phtml"/>
+    	</reference>
+    </checkout_onepage_review> -->
+
+    
+    <sales_order_view translate="label">
+    <reference name="order_totals">
+    	<action method="setTemplate" ifconfig="rewardpoints/general/enabled"><template>apptha_rewardpoints/sales/order/totals.phtml</template></action>
+    	<block type="core/template" name="rewardpoints.checkout.onepage.review.info.totals.rewardpoints" as="rewardpoints" template="apptha_rewardpoints/sales/order/totals/rewardpoints.phtml"/>
+    </reference>
+    </sales_order_view>
+    
+    <sales_order_print translate="label">
+    <reference name="order_totals">
+    	<action method="setTemplate" ifconfig="rewardpoints/general/enabled"><template>apptha_rewardpoints/sales/order/totals.phtml</template></action>
+    	<block type="core/template" name="rewardpoints.checkout.onepage.review.info.totals.rewardpoints" as="rewardpoints" template="apptha_rewardpoints/sales/order/totals/rewardpoints.phtml"/>
+    </reference>
+    </sales_order_print>
+    
+    <sales_order_invoice translate="label">
+	    <reference name="invoice_totals">
+	    	<action method="setTemplate" ifconfig="rewardpoints/general/enabled"><template>apptha_rewardpoints/sales/order/totals.phtml</template></action>
+	    	<block type="core/template" name="rewardpoints.checkout.onepage.review.info.totals.rewardpoints" as="rewardpoints" template="apptha_rewardpoints/sales/order/totals/rewardpoints.phtml"/>
+	    </reference>
+    </sales_order_invoice>
+    
+     <sales_order_printinvoice translate="label">
+	    <reference name="invoice_totals">
+	    	<action method="setTemplate" ifconfig="rewardpoints/general/enabled"><template>apptha_rewardpoints/sales/order/totals.phtml</template></action>
+	    	<block type="core/template" name="rewardpoints.checkout.onepage.review.info.totals.rewardpoints" as="rewardpoints" template="apptha_rewardpoints/sales/order/totals/rewardpoints.phtml"/>
+	    </reference>
+    </sales_order_printinvoice>
+    
+    <sales_order_creditmemo translate="label">
+	    <reference name="creditmemo_totals">
+	    	<action method="setTemplate" ifconfig="rewardpoints/general/enabled"><template>apptha_rewardpoints/sales/order/totals.phtml</template></action>
+	    	<block type="core/template" name="rewardpoints.checkout.onepage.review.info.totals.rewardpoints" as="rewardpoints" template="apptha_rewardpoints/sales/order/totals/creditmemo_rewardpoints.phtml"/>
+	    </reference>
+    </sales_order_creditmemo>
+    
+     <sales_order_printcreditmemo translate="label">
+	    <reference name="creditmemo_totals">
+	    	<action method="setTemplate" ifconfig="rewardpoints/general/enabled"><template>apptha_rewardpoints/sales/order/totals.phtml</template></action>
+	    	<block type="core/template" name="rewardpoints.checkout.onepage.review.info.totals.rewardpoints" as="rewardpoints" template="apptha_rewardpoints/sales/order/totals/creditmemo_rewardpoints.phtml"/>
+	    </reference>
+    </sales_order_printcreditmemo>
+        
+    <sales_email_order_items>
+    	<reference name="order_totals">
+    		<action method="setTemplate" ifconfig="rewardpoints/general/enabled"><template>apptha_rewardpoints/sales/order/totals.phtml</template></action>
+    		<block type="core/template" name="rewardpoints.checkout.onepage.review.info.totals.rewardpoints" as="rewardpoints" template="apptha_rewardpoints/sales/order/totals/email_rewardpoints.phtml"/>
+    	</reference>
+    </sales_email_order_items>
+              
+   	<!--  <catalog_category_default>
+    	<reference name="product_list">
+    		<action method="setTemplate" ifconfig="rewardpoints/config/product_view"><template>apptha_rewardpoints/catalog/product/list.phtml</template></action>
+    	</reference>
+    </catalog_category_default>
+    <catalog_category_layered>
+    	<reference name="product_list">
+    		<action method="setTemplate" ifconfig="rewardpoints/config/product_view"><template>apptha_rewardpoints/catalog/product/list.phtml</template></action>
+    	</reference>
+    </catalog_category_layered>
+    
+    <catalog_product_view>
+    	<reference name="product.info">
+    		<action method="setTemplate" ifconfig="rewardpoints/config/product_view"><template>apptha_rewardpoints/catalog/product/view.phtml</template></action>
+    	</reference>
+    </catalog_product_view>-->
+</layout> 

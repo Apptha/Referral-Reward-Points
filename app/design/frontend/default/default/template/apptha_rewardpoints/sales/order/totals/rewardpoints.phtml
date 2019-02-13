@@ -1,0 +1,11 @@
+<?php $order = Mage::registry('current_order');?>
+<?php if(!$order) $order = $this->getParentBlock()->getOrder();?>
+<?php $rewardOrder = Mage::getModel('rewardpoints/rewardpointsorder')->load($order->getId())?>
+<?php $rewardpoints = $rewardOrder->getRewardPoint();?>
+<?php if($rewardpoints):?>
+	<?php $money = $rewardOrder->getMoney();?>
+	<tr class="rewardpoints">
+	    <td style="text-align: right;" class="a-right" colspan="4"><b><?php echo Mage::helper("rewardpoints")->__("You Spend")?></b></td>
+	    <td style="text-align: right;"" class="a-right"><span class="price"><?php echo Mage::helper('rewardpoints')->formatPoints($rewardpoints)." = ".Mage::helper('rewardpoints')->formatMoney(-$money)?></span></td>
+	</tr>
+<?php endif;?>

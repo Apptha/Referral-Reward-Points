@@ -1,0 +1,534 @@
+<?xml version="1.0"?>
+<config>
+     <tabs>
+        <apptha translate="label" module="rewardpoints">
+            <label>Apptha</label>
+            <sort_order>100</sort_order>
+        </apptha>
+    </tabs>
+    <sections>
+        <rewardpoints translate="label" module="rewardpoints">
+            <label>Referral Points</label>
+            <tab>apptha</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>                
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>	
+                    					
+						<enabled translate="label">
+                            <label>Enable Referral Points</label>                            
+                            <frontend_type>select</frontend_type>
+                            <validate>validate-select</validate>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                            
+                        </enabled>
+                        
+                        <points_currency_rate translate="label">
+                            <label>Points/Currency Rate</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry</validate>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Format (points / currency rate)</comment>
+                        </points_currency_rate> 
+                        
+                        <!-- <reward_points_expire_days translate="label">
+                            <label>Reward Points Expiration</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>in days (leave blank or 0 - no limitations)</comment>
+                        </reward_points_expire_days>
+                        
+                         <reward_points_minimums translate="label">
+                            <label>Reward Points Minimums</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>leave blank or 0 (no limitations)</comment>
+                        </reward_points_minimums>
+                        
+                        <reward_points_maximums translate="label">
+                            <label>Reward Points Maximums</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>leave blank or 0 (no limitations)</comment>
+                        </reward_points_maximums>-->
+                        						
+                    </fields>
+                </general>
+                
+                <config>
+                	<label>Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                    
+                        <!--  <free_gift>
+                    		<label>Enable Free Gift/Product When Attain Certain Points</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                    	</free_gift>-->
+                    	
+                    	<enabled_product_reward_point>
+                        	<label>Enable Reward Points For Products</label>
+                        	<frontend_type>select</frontend_type>
+                        	<source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled_product_reward_point>
+                    	
+                    	<!--  <product_view>
+                    		<label>Display Reward Points On Product View</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                    	</product_view>  -->    
+                    	
+                    	<poll_limit>
+                    		<label>Poll Limit</label>
+                            <frontend_type>text</frontend_type>   
+                            <validate>validate-digits</validate>                       
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>leave blank or 0 - no limitations</comment>
+                    	</poll_limit>          	                    	                    	                    	
+                    </fields>
+                </config>
+                
+                <earning_points translate="label">
+                    <label>Earning Points</label>
+                    <frontend_type>text</frontend_type>
+                    <validate>validate-digits</validate>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                    
+                    	 <registration translate="label">
+                            <label>Registration</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits</validate>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>leave blank or 0 to disable</comment>
+                        </registration>
+                        
+                        <signup_newsletter>
+                    		<label>Signup Newsletter</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits</validate>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>leave blank or 0 to disable</comment>
+                    	</signup_newsletter>
+                    	
+                        <reviewing_product translate="label">
+                            <label>Reviewing Product</label>
+                            <frontend_type>text</frontend_type> 
+                            <validate>validate-digits</validate>                           
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>leave blank or 0 to disable</comment>
+                        </reviewing_product>
+                        
+                        <tagging_product translate="label">
+                            <label>Tagging Product</label>
+                            <frontend_type>text</frontend_type>  
+                            <validate>validate-digits</validate>                          
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>leave blank or 0 to disable</comment>
+                        </tagging_product>
+                        
+                        <participating_in_poll translate="label">
+                            <label>Participating in Poll</label>
+                            <frontend_type>text</frontend_type>   
+                            <validate>validate-digits</validate>                         
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>leave blank or 0 to disable</comment>
+                        </participating_in_poll>
+                        
+                        <!--  <participating_in_poll_limit translate="label">
+                            <label>Participating in Poll Points/Limit</label>
+                            <frontend_type>text</frontend_type>                            
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>leave blank or 0 (no limitations)</comment>
+                        </participating_in_poll_limit> -->
+                        
+                       <points_to_purchasing_order translate="label">
+                            <label>Purchasing Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>27</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Format ( points / order amount ) - leave blank or 0 to disable</comment>                            
+                        </points_to_purchasing_order> 
+                        
+                        <maximum_points_to_purchasing_order translate="label">
+                            <label>Maximum Points to Purchasing Order</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits</validate>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Format (fixed number of points or percent of grand total) leave blank or 0 to no limitations</comment>                            
+                        </maximum_points_to_purchasing_order> 
+                        
+                        <!--<points_to_specific_product translate="label">
+                            <label>Specific Product</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>29</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>leave blank or 0 to disable</comment>                            
+                        </points_to_specific_product>
+                                                
+                          <share_points_to_friends translate="label">
+                            <label>Share Points to Friends</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>leave blank or 0 to disable</comment>
+                        </share_points_to_friends>-->
+                        
+                        <referral_link translate="label">
+                            <label>For Referral Link</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits</validate>
+                            <sort_order>29</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>leave blank or 0 to disable</comment>
+                        </referral_link>
+                        
+                        <friend_registration translate="label">
+                            <label>Friend Registration</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits</validate>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>leave blank or 0 to disable</comment>
+                        </friend_registration>
+                        
+                        <friend_first_purchase translate="label">
+                            <label>Friend First Purchase</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits</validate>
+                            <sort_order>31</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Fixed number of points or Format ( points / order total ) - leave blank or 0 to disable</comment>
+                        </friend_first_purchase>
+                        
+                        <friend_second_purchase translate="label">
+                            <label>Friend Second Purchase</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-digits</validate>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Fixed number of points or Format ( points / order total ) - leave blank or 0 to disable</comment>
+                        </friend_second_purchase>
+                                                                        
+                    </fields>
+                </earning_points>
+                <invitations translate="label">
+                    		<label>Invitation</label>                            
+		                    <frontend_type>text</frontend_type>
+		                    <sort_order>30</sort_order>
+		                    <show_in_default>1</show_in_default>
+		                    <show_in_website>1</show_in_website>
+		                    <show_in_store>1</show_in_store>
+		             <fields>						
+						<enabled translate="label">
+                            <label>Enable Invitation</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                      	<social_networks translate="label">
+                            <label>Social Networks</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </social_networks>
+                        <referral_link translate="label">
+                            <label>Referral Link</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </referral_link>
+                        <invite_friends_via_email translate="label">
+                            <label>Invite Friend via Email</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </invite_friends_via_email>
+                        
+                        <using_customer_email>
+                        	<label>Customer Email</label>
+                        	<source_model>adminhtml/system_config_source_yesno</source_model> 
+                            <frontend_type>select</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>System will use this customer email to sent email</comment>
+                        </using_customer_email>
+                        <email_sender>
+                        	<label>Sender</label>
+                        	<source_model>adminhtml/system_config_source_email_identity</source_model> 
+                            <frontend_type>select</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>System will use this template to sent email</comment>
+                        </email_sender>
+                        <recipient_template>
+                        	<label>Recipients</label>
+                        	<source_model>adminhtml/system_config_source_email_template</source_model> 
+                            <frontend_type>select</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>System will use this template to sent email</comment>
+                        </recipient_template>
+                    </fields>
+                </invitations>
+                
+                <share_points translate="label">
+                    <label>Share Points to Friends</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+					<!--                        
+                        <time>
+                    		<label>Times Between Two Transaction (Seconds)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enter 0 or leave the field empty if not require  (not recommend)</comment>
+                    	</time>
+                    	
+                    	<time_life>
+                    		<label>Time For A Pending Transaction (Hour)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enter 0 or leave the field empty if not require  (not recommend)</comment>
+                    	</time_life>-->
+                   		<enabled translate="label">
+                            <label>Enable Share Points to Friends</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                            
+                        </enabled>
+                        <sender_template translate="label">
+                            <label>Send an Email to Customer</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sender_template>
+                        
+                        <recipient_template translate="label">
+                            <label>Send an Email to Recipient</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </recipient_template>
+                        
+                    	<email_sender>
+                        	<label>Email Sender</label>
+                        	<source_model>adminhtml/system_config_source_email_identity</source_model> 
+                            <frontend_type>select</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>System will use this address to sent email</comment>
+                        </email_sender>
+                        
+                        <sender_template>
+                        	<label>Customer's Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model> 
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sender_template>
+                        
+                        <recipient_template>
+                        	<label>Recipient's Email Template</label>
+                        	<source_model>adminhtml/system_config_source_email_template</source_model> 
+                            <frontend_type>select</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </recipient_template>
+                    </fields>
+                </share_points>
+                
+                <!--  <notifications translate="label">
+                    <label>Notifications</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                    
+						<enabled translate="label">
+                            <label>Enable Notifications</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>41</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>                    	
+                        
+                    	<email_sender>
+                        	<label>Sender</label>
+                        	<source_model>adminhtml/system_config_source_email_identity</source_model> 
+                            <frontend_type>select</frontend_type>
+                            <sort_order>42</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>System will use this address to sent email</comment>
+                        </email_sender>
+                        
+                        <points_update_mail>
+                        	<label>Points Update Mail</label>
+                        	<source_model>adminhtml/system_config_source_email_template</source_model> 
+                            <frontend_type>select</frontend_type>
+                            <sort_order>43</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>System will use this template to sent email</comment>
+                        </points_update_mail>
+                        
+                         <points_expiration_mail>
+                        	<label>Points Expiration Mail</label>
+                        	<source_model>adminhtml/system_config_source_email_template</source_model> 
+                            <frontend_type>select</frontend_type>
+                            <sort_order>44</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>System will use this template to sent email</comment>
+                        </points_expiration_mail>
+                        
+                        <email_sending_before_expiration translate="label">
+                            <label>Email Sending before points expiring (in days)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>leave blank or 0 (no limitations)</comment>
+                        </email_sending_before_expiration>                        
+
+                    </fields>
+                </notifications>  -->                              
+
+            </groups>
+            
+        </rewardpoints>
+    </sections>
+</config>

@@ -1,0 +1,1 @@
+$apptha_rewardpoints = jQuery.noConflict();

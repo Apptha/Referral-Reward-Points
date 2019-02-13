@@ -1,0 +1,129 @@
+<style type="text/css">
+#redeem_hide{display: none}
+.redeem{float:left; margin:0; padding:0;}
+.redeem input{cursor:pointer; background: #618499;padding: 2px 8px;border: 0;color: white;font-weight: bold;margin-left: 5px;} 
+</style>
+
+<?php $check = version_compare(Mage::getVersion(),'1.4.0.1','>=');?>
+<div id="rewardpoints_box">
+
+	<div class="discount discount-codes box">
+	<?php if($check):?>
+		<h2>
+		<?php echo $this->__('your rewarded points') ?>
+			<a href="javascript:void(0)" id="rewardpoints_box_hide"><?php echo $this->__("Show");?></a>
+		</h2>
+		<?php else:?>
+		<h4>
+		<?php echo $this->__('your rewarded points') ?>
+			<a href="javascript:void(0)" id="rewardpoints_box_hide"><?php echo $this->__("Show");?></a>
+		</h4>
+		<?php endif;?>
+
+		<div id="rewardpoints_box_show" style="display: none;">
+			<div class="discount-form">
+
+			<?php $rate = $this->getPointPerMoney();?>
+				<div style="width: 100%;">
+				<?php if($this->_getCustomer()->getId()):?>
+					<div style="float: left;padding-bottom: 10px;">
+
+						<ul style="padding-left: 20px">
+							<li style="font-weight: normal;"><?php echo Mage::helper('rewardpoints')->__('Points / Currency Rate: <b>%s</b> <b>%s</b>  <b>%s</b>',Mage::helper('rewardpoints')->formatPoints($rate[0]),'-', $this->formatMoney($rate[1])) ?>
+							</li>
+							<li><?php echo $this->__("Your current balance of referral points: <b>%s</b>",Mage::helper('rewardpoints')->formatPoints($this->getCurrentRewardPoints()))?>
+							</li>
+						</ul>
+					</div>
+
+					<?php //echo '<pre>';print_r($this->getRewardPointsRule());?>
+					<?php foreach($this->getRewardPointsRule() as $rule):?>
+					<div style="width: 100%; padding-left: 20px;">
+						<div style="float: left;">
+						<?php echo $rule['message'];?>
+						</div>
+						<!--  <div style="float:left;"><b><?php echo $this->__('- %s %s',($rule['qty']>1?$rule['qty']." x":""),Mage::helper('rewardpoints')->formatPoints($rule['amount']));?></b></div>-->
+					</div>
+					<?php $total += $rule['amount']*$rule['qty'];?>
+					<?php endforeach;?>
+
+					<div style="float: left; width: 355px; padding: 10px 0 0 20px">
+						<input type="checkbox" name="use_reward_points"	id="use_reward_points" onclick="updateRewardPoints()" />
+						
+						<?php echo $this->__("Use Reward Points to Checkout")?>
+						<div class="clear"></div>
+						<div id="redeem_hide">
+						<label id="reward_points_label" style="padding-top: 2px;float: left"><?php echo $this->__("Enter Your Reward Points : ");?> 
+						</label>
+						<input type="text" name="reward_points_amount" id="reward_points_amount" style="float: left;"/> 
+						<div class="redeem">
+						<input type="button" name="redeem"  value="Redeem" onclick="updateRewardPoints()" class="" />
+						</div>
+						</div>
+						<!--  <div id="redeem" class="buttons-set" style="display: none;float: left">
+                		<button value="Redeem" onclick="updateRewardPoints()" class="button" title="Redeem" type="button"><span><span>Redeem</span></span></button>
+                        </div>-->
+					</div>
+					<?php else:?>
+					<div style="padding-left: 24px">
+					<?php echo $this->__("Please <a href='%s'>LOGIN</a> to use referral points", Mage::getUrl('customer/account/login'))?>
+					</div>
+					<?php endif;?>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+$apptha_rewardpoints = jQuery.noConflict();
+$apptha_rewardpoints(function() {
+});
+
+function updateRewardPoints(){	
+	//hide/show text box
+	if ($('use_reward_points').checked){
+		$apptha_rewardpoints("#redeem_hide").css("display","block");			
+		}else{
+		$apptha_rewardpoints("#redeem_hide").css("display","none");		
+		}
+	
+	var strCurRewPoints = '<?php echo $this->getCurrentRewardPoints();?>';
+	strCurRewPoints = parseInt(strCurRewPoints);
+
+	if($('use_reward_points').checked == false){		
+		$('reward_points_amount').value = 0;
+		}
+    if (isNaN($('reward_points_amount').value)) $('reward_points_amount').value = 0;    
+    $('reward_points_amount').value = Math.abs($('reward_points_amount').value).toFixed(0);        
+    //if ($('reward_points_amount').value > neededPoints) $('reward_points_amount').value = neededPoints;
+    if ($('reward_points_amount').value > strCurRewPoints) $('reward_points_amount').value = strCurRewPoints;
+    //if ($('reward_points_amount').value > strCurRewPoints) $('reward_points_amount').value = strCurRewPoints;
+    
+
+	if($('use_reward_points').checked == false || $('reward_points_amount').value != '0'){
+	$apptha_rewardpoints("#shopping-cart-totals-contaner").html($apptha_rewardpoints("#shopping-cart-totals-please-wait").html());
+	$apptha_rewardpoints.ajax({
+		type: "POST",
+		url: '<?php echo Mage::getUrl('rewardpoints/checkout/rewardpointscheckout')?>',
+		data: "rewardpoints="+$('reward_points_amount').value,
+	    success: function(data) {
+			$apptha_rewardpoints('#shopping-cart-totals-contaner').html(data);			
+		}
+	});
+	}
+}
+
+var $j_apptha = jQuery.noConflict();
+
+$j_apptha(function(){
+	$j_apptha("#rewardpoints_box_hide").click(function(){		
+		$j_apptha("#rewardpoints_box_show").slideToggle();
+		if(this.innerHTML =='Hide') this.innerHTML = 'Show';
+		else this.innerHTML = 'Hide';
+	});
+});
+</script>
+
+

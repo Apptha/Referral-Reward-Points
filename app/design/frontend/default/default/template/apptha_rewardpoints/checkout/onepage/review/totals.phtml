@@ -1,0 +1,36 @@
+<?php $check = version_compare(Mage::getVersion(),'1.4.0.1','>=');?>
+<?php if($check):?>
+	<?php if ($this->getTotals()): ?>
+	<tfoot>
+	    <?php $_colspan = $this->helper('tax')->displayCartBothPrices() ? 5 : 3; ?>
+	    <?php /*********************************************************************/?>		
+	    <?php echo $this->getChildHtml('rewardpoints');?>
+	    <?php /*********************************************************************/?>
+
+	    <?php echo $this->renderTotals(null, $_colspan); ?>
+	    	    
+	    <?php echo $this->renderTotals('footer', $_colspan); ?>
+	    <?php if ($this->needDisplayBaseGrandtotal()):?>
+	    <tr>
+	        <td class="a-right" colspan="<?php echo $_colspan; ?>">
+	            <small><?php echo $this->helper('sales')->__('Your credit card will be charged for') ?></small>
+	        </td>
+	        <td class="a-right">
+	            <small><?php echo $this->displayBaseGrandtotal() ?></small>
+	        </td>
+	    </tr>
+	    <?php endif?>
+	</tfoot>
+	<?php endif; ?>
+<?php else:?>
+	<?php if ($this->getTotals()): ?>
+	<tfoot>
+	    <?php $_colspan = $this->helper('tax')->displayCartBothPrices() ? 5 : 3; ?>
+	    <?php /*********************************************************************/?>	    
+	    <?php echo $this->getChildHtml('rewardpoints');?>
+	    <?php /*********************************************************************/?>
+	    <?php echo $this->renderTotals(null, $_colspan); ?>
+	    <?php echo $this->renderTotals('footer', $_colspan); ?>
+	</tfoot>
+	<?php endif; ?>
+<?php endif;?>

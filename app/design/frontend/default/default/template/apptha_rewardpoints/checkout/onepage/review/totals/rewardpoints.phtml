@@ -1,0 +1,8 @@
+<?php $rewardpoints = Mage::helper('rewardpoints')->getCheckoutSession()->getRewardPoints();?>
+<?php if($rewardpoints):?>
+	<?php $money = Mage::helper('rewardpoints')->getCheckoutSession()->getDiscount()?>
+	<!--  <tr>
+	    <td colspan="3" class="a-right" colspan="1"><b><?php echo Mage::helper("rewardpoints")->__("You Spend");?></b></td>
+	    <td class="a-right"><span class="price"><?php echo Mage::helper('rewardpoints')->formatPoints($rewardpoints)?></span></td>
+	</tr>-->
+<?php endif;?>

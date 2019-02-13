@@ -1,0 +1,65 @@
+<form id="form-validate" method="post" action="<?php echo $this->getUrl('rewardpoints/rewardpoints/send')?>">
+    <div class="fieldset group-select">
+        <?php echo $this->getBlockHtml('formkey')?>
+        <h2 class="legend"><?php echo $this->__("Share Referral Points To Friend")?> <a href="javascript:void(0)" id="sharepoints_form_hide">Show</a></h2>        
+        <div id="sharepoints_form_show" style="display: none;">
+        <ul class="form-list">
+            <li class="fields">
+                <div class="customer-name">
+                	<?php $addonClass="";?>
+                	<?php if(version_compare(Mage::getVersion(),"1.3.2.4","<=")) $addonClass = " input-box";?>
+				    <div class="field<?php echo $addonClass;?> name-firstname">
+				        <label class="required" style="color:#666666" for="email"><?php echo Mage::helper('rewardpoints')->__('Email of your friends');?><em style="color:#EB340A">*</em></label>
+				        <div class="input-box">
+				            <input type="text" class="input-text required-entry validate-email" title="Email" name="email" id="email" gtbfieldid="135">
+				        </div>
+				    </div>
+				    <div class="field<?php echo $addonClass;?> name-firstname">
+				        <label class="required" style="color:#666666" for="name"><?php echo Mage::helper('rewardpoints')->__('Friend name');?><em style="color:#EB340A">*</em></label>
+				        <div class="input-box">
+				            <input type="text" class="input-text required-entry" title="Name" name="name" id="name" gtbfieldid="135">
+				        </div>
+				    </div>
+				</div>
+            </li>
+           
+            <li>
+			    <div class="validate-code">
+			        <div class="field<?php echo $addonClass;?> name-firstname">
+			        	<label class="required" style="color:#666666" for="points"><?php echo Mage::helper('rewardpoints')->__('Points');?><em style="color:#EB340A">*</em></label>
+			        	<div class="input-box"><input type="text" class="input-text required-entry validate-digits" title="Points" name="points" id="points" gtbfieldid="136"></div>
+			        </div>
+			        
+			        <div class="field<?php echo $addonClass;?> name-firstname" style="width:300px; margin-top: 10px;">
+			        	<img id="siimage" align="left" style="border: 1px solid #B6B6B6;" src="<?php echo trim($this->getUrl('rewardpoints/rewardpoints/image'),"/")."?sid=".time(); ?>" />
+       					<a tabindex="-1" style="border-style: none;" href="#" title="Refresh Image" onclick="document.getElementById('siimage').src = '<?php echo trim($this->getUrl('rewardpoints/rewardpoints/image'),"/"); ?>?sid=' + Math.random(); return false"><img src="<?php echo $this->getSkinUrl('apptha_rewardpoints/images/refresh.gif')?>" alt="Reload Image" border="0" onclick="this.blur()" align="bottom" /></a>
+       					<label class="required" style="color:#666666" for="capcha"><?php echo Mage::helper('rewardpoints')->__('Security Code');?><em style="color:#EB340A">*</em></label>
+			        	<div class="input-box"><input type="text" class="input-text required-entry" title="Validate Code" name="code" id="capcha" gtbfieldid="136"></div>
+			        </div>
+			        
+			    </div>
+            </li>
+            <li>
+                <div>
+			        <button class="button form-button" title="<?php echo Mage::helper('rewardpoints')->__("Send");?>" type="submit"><span><span>  <?php echo Mage::helper('rewardpoints')->__("Send");?>  </span></span></button>
+			        <p class="required"><?php echo Mage::helper('rewardpoints')->__("* Required Fields");?></p>
+			    </div>
+            </li>
+        </ul>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    //]]>
+    var $j_apptha = jQuery.noConflict();
+
+    $j_apptha(function(){
+    	$j_apptha("#sharepoints_form_hide").click(function(){		
+    		$j_apptha("#sharepoints_form_show").slideToggle();
+    		if(this.innerHTML =='Hide') this.innerHTML = 'Show';
+    		else this.innerHTML = 'Hide';
+    	});
+    });
+</script>
